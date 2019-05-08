@@ -1,0 +1,6 @@
+[submodule "web"]
+	path = web
+	url = git@github.com:GUIKAR741/library-project-web.git
+[submodule "desktop"]
+	path = desktop
+	url = git@github.com:GUIKAR741/library-project-desktop.git
