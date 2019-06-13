@@ -38,7 +38,7 @@ CREATE TABLE `devolucao` (
   PRIMARY KEY (`id`),
   KEY `fk_devolucao_emprestimo1_idx` (`emprestimo_id`),
   CONSTRAINT `fk_devolucao_emprestimo1` FOREIGN KEY (`emprestimo_id`) REFERENCES `emprestimo` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,6 +47,7 @@ CREATE TABLE `devolucao` (
 
 LOCK TABLES `devolucao` WRITE;
 /*!40000 ALTER TABLE `devolucao` DISABLE KEYS */;
+INSERT INTO `devolucao` VALUES (1,2,'2019-07-13 03:00:00',NULL);
 /*!40000 ALTER TABLE `devolucao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -70,7 +71,7 @@ CREATE TABLE `emprestimo` (
   KEY `fk_Usuario_has_Exemplar_Usuario1_idx` (`usuario_id`),
   CONSTRAINT `fk_Usuario_has_Exemplar_Exemplar1` FOREIGN KEY (`exemplar_id`) REFERENCES `exemplar` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `fk_Usuario_has_Exemplar_Usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,6 +80,7 @@ CREATE TABLE `emprestimo` (
 
 LOCK TABLES `emprestimo` WRITE;
 /*!40000 ALTER TABLE `emprestimo` DISABLE KEYS */;
+INSERT INTO `emprestimo` VALUES (1,1,6,'2019-06-13 17:30:58','2019-07-13 03:00:00',1,0),(2,1,7,'2019-06-13 17:30:58','2019-07-13 03:00:00',1,1);
 /*!40000 ALTER TABLE `emprestimo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,7 +161,7 @@ CREATE TABLE `reserva` (
   KEY `fk_Reserva_Usuario1_idx` (`usuario_id`),
   CONSTRAINT `fk_Reserva_Livro1` FOREIGN KEY (`livro_id`) REFERENCES `livro` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `fk_Reserva_Usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,6 +170,7 @@ CREATE TABLE `reserva` (
 
 LOCK TABLES `reserva` WRITE;
 /*!40000 ALTER TABLE `reserva` DISABLE KEYS */;
+INSERT INTO `reserva` VALUES (1,4,1,'2019-06-13 17:24:03',1);
 /*!40000 ALTER TABLE `reserva` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,4 +214,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-12 19:48:50
+-- Dump completed on 2019-06-13 20:37:59
