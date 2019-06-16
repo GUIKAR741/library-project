@@ -34,11 +34,11 @@ CREATE TABLE `devolucao` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `emprestimo_id` int(11) NOT NULL,
   `data_devolucao` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `multa` decimal(10,2) DEFAULT NULL,
+  `multa` decimal(10,2) DEFAULT '0.00',
   PRIMARY KEY (`id`),
   KEY `fk_devolucao_emprestimo1_idx` (`emprestimo_id`),
   CONSTRAINT `fk_devolucao_emprestimo1` FOREIGN KEY (`emprestimo_id`) REFERENCES `emprestimo` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +47,7 @@ CREATE TABLE `devolucao` (
 
 LOCK TABLES `devolucao` WRITE;
 /*!40000 ALTER TABLE `devolucao` DISABLE KEYS */;
-INSERT INTO `devolucao` VALUES (1,2,'2019-07-13 03:00:00',NULL);
+INSERT INTO `devolucao` VALUES (1,1,'2019-06-16 14:27:22',0.00),(2,2,'2019-06-16 14:27:25',1.50);
 /*!40000 ALTER TABLE `devolucao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,9 +80,32 @@ CREATE TABLE `emprestimo` (
 
 LOCK TABLES `emprestimo` WRITE;
 /*!40000 ALTER TABLE `emprestimo` DISABLE KEYS */;
-INSERT INTO `emprestimo` VALUES (1,1,6,'2019-06-13 17:30:58','2019-07-13 03:00:00',1,0),(2,1,7,'2019-06-13 17:30:58','2019-07-13 03:00:00',1,1);
+INSERT INTO `emprestimo` VALUES (1,1,6,'2019-06-13 17:30:58','2019-07-13 03:00:00',1,0),(2,1,7,'2019-06-13 17:30:58','2019-06-13 03:00:00',1,0);
 /*!40000 ALTER TABLE `emprestimo` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`guilherme`@`localhost`*/ /*!50003 TRIGGER `insere_devolucao` AFTER UPDATE ON `emprestimo` FOR EACH ROW BEGIN
+	DECLARE mul DECIMAL(10,2) default 0.0;
+	if old.status = 0 and new.status = 1 then
+        if DATEDIFF(CURRENT_TIMESTAMP, new.data_devolucao_estimada) > 0 then
+        	SET mul = DATEDIFF(CURRENT_TIMESTAMP, new.data_devolucao_estimada) * 0.5;
+        end if;
+    	INSERT INTO devolucao values(null, new.id, null, mul);
+    end if;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `exemplar`
@@ -192,7 +215,7 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `cpf_UNIQUE` (`cpf`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -201,7 +224,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'guilherme nepomuceno','gui@gmail.com','(12)34561-1111',0,'34567891011','$pbkdf2-sha256$29000$b825l7KW0vr/H.O8NyYk5A$wRtNwRnlD0WnoKY1U9iWTobZC3wSANbKtdMWrRRZc6w');
+INSERT INTO `usuario` VALUES (1,'guilherme nepomuceno','gui@gmail.com','(12)34561-1111',0,'34567891011','$pbkdf2-sha256$29000$b825l7KW0vr/H.O8NyYk5A$wRtNwRnlD0WnoKY1U9iWTobZC3wSANbKtdMWrRRZc6w'),(2,'usuario','usuario@usuario.com','(88)88888-8888',1,'22222222222','$pbkdf2-sha256$29000$OofQek.pdS7lvJeyFsJ4Tw$6DV0ZdrzvIh7r7iio9jWQEao06ssECT3PlGFvvb.RNI');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -214,4 +237,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-13 20:37:59
+-- Dump completed on 2019-06-16 13:42:47
