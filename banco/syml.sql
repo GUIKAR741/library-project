@@ -184,7 +184,7 @@ CREATE TABLE `reserva` (
   KEY `fk_Reserva_Usuario1_idx` (`usuario_id`),
   CONSTRAINT `fk_Reserva_Livro1` FOREIGN KEY (`livro_id`) REFERENCES `livro` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `fk_Reserva_Usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,7 +193,7 @@ CREATE TABLE `reserva` (
 
 LOCK TABLES `reserva` WRITE;
 /*!40000 ALTER TABLE `reserva` DISABLE KEYS */;
-INSERT INTO `reserva` VALUES (1,4,1,'2019-06-13 17:24:03',0),(2,1,1,'2019-06-20 11:52:35',0);
+INSERT INTO `reserva` VALUES (1,4,1,'2019-06-13 17:24:03',0),(2,1,1,'2019-06-20 11:52:35',0),(3,1,1,'2019-06-20 17:47:58',0),(4,1,1,'2019-06-20 18:57:27',1);
 /*!40000 ALTER TABLE `reserva` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -224,7 +224,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'guilherme nepomuceno','gui@gmail.com','(12)34561-1111',0,'34567891011','$pbkdf2-sha256$29000$b825l7KW0vr/H.O8NyYk5A$wRtNwRnlD0WnoKY1U9iWTobZC3wSANbKtdMWrRRZc6w'),(2,'usuario','usuario@usuario.com','(88)88888-8888',1,'22222222222','$pbkdf2-sha256$29000$OofQek.pdS7lvJeyFsJ4Tw$6DV0ZdrzvIh7r7iio9jWQEao06ssECT3PlGFvvb.RNI');
+INSERT INTO `usuario` VALUES (1,'usuario','usuario@gmail.com','(12)34561-2222',0,'34567891011','$pbkdf2-sha256$29000$5ByDEGIM4fyf09o7R.j9Hw$fcLCscCMDIoAGgv7DZPWn2/8u.pZTHe9kEWD.REiJQg'),(2,'usuario','usuario@usuario.com','(88)88888-8888',1,'22222222222','$pbkdf2-sha256$29000$OofQek.pdS7lvJeyFsJ4Tw$6DV0ZdrzvIh7r7iio9jWQEao06ssECT3PlGFvvb.RNI');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -237,4 +237,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-20 10:02:08
+-- Dump completed on 2019-06-20 19:01:50
